@@ -14,7 +14,7 @@ export const getAllEnrolledClasses = async () => {
 //* Get all enrollments of a student by email
 export const getEnrolledClassesByEmail = async (email) => {
     try {
-      const res = await axiosInstance.get("/enrollClass", {
+      const res = await axiosInstance.get("/enroll-class", {
         params: { email: email },
       });
       return res.data;

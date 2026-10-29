@@ -2,7 +2,13 @@ import ReusableForm from "../../Form/ReusableForm";
 import ReusableInput from "../../Form/ReusableInput";
 import ReusableTextArea from "../../Form/ReusableTextArea";
 import ReusableSelect from "../../Form/ReusableSelect";
-import { courseDurationOptions, courseLevelOptions, courseMaterialsOptions, courseRequirementsOptions, courseTimeOptions } from "../../Form/FormSelectData";
+import {
+  courseDurationOptions,
+  courseLevelOptions,
+  courseMaterialsOptions,
+  courseRequirementsOptions,
+  courseTimeOptions,
+} from "../../Form/FormSelectData";
 import ReusableMultiSelect from "../../Form/ReusableMultiSelect";
 import toast from "react-hot-toast";
 import { updateAClass } from "../../../api/classes/instructors.api";
@@ -20,31 +26,32 @@ const ClassModalData = ({ classData, closeModal }) => {
     time: classData?.time,
     requirements: classData?.requirements,
     materials: classData?.materials,
-  }
-  // console.log(classData);
+  };
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     try {
       const updatedData = {
         ...data,
         courseFree: Number(data?.courseFree),
-        seats: Number(data?.seats)
-      }
-    
+        seats: Number(data?.seats),
+      };
+
       //* call update related functionality
       const res = await updateAClass(updatedData, classData._id);
-      res.modifiedCount && toast.success("Course update successfully !")
-      
-      closeModal(true)
+      if (res?.modifiedCount || res?.data?.modifiedCount || res?.success) {
+        toast.success("Course updated successfully!");
+      }
+
+      closeModal(true);
     } catch (error) {
       toast.error(error.message);
-      closeModal(true)
+      closeModal(true);
     }
   };
 
   return (
     <div className="my-3 add-class mx-auto">
-       <ReusableForm onSubmit={onSubmit} defaultValues={defaultValues} >
+      <ReusableForm onSubmit={onSubmit} defaultValues={defaultValues}>
         <div className="sm:block md:flex items-center justify-between gap-4">
           <div className="w-full">
             <ReusableInput

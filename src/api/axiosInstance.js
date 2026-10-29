@@ -1,20 +1,23 @@
 import axios from "axios";
 
-const baseURL = `${import.meta.env.VITE_API_URL}`;
+const baseURL = `${import.meta.env.VITE_API_URL || ""}`;
 
-const headers = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-};
-
-const token = localStorage.getItem("access-token");
-
-if (token) {
-    headers.Authorization = `Bearer ${token}`;
-}
-
-//* Creating an axios instance with some basic configuration
+//* Creating an axios instance with dynamic token injection
 export const axiosInstance = axios.create({
   baseURL,
-  headers,
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
 });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access-token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
