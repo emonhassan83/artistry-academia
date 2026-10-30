@@ -1,5 +1,47 @@
-# Logs
-logs
+# ==============================================================================
+# Artistry Academia - Root .gitignore
+# Monorepo: Client (Vite + React) & Server (Express + Node.js + MongoDB)
+# ==============================================================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Environment Variables & Secret Files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.local
+server/.env
+server/.env.*
+client/.env
+client/.env.*
+_user_credintial.txt
+*.pem
+*.key
+
+# Build & Output Artifacts
+dist/
+dist-ssr/
+client/dist/
+server/dist/
+build/
+out/
+
+# Deployment & Hosting Cache
+.vercel/
+server/.vercel/
+.firebase/
+client/.firebase/
+*.cache
+
+# Logs & Debugging
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,24 +49,27 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-.env
-.env.*
-_user_credintial.txt
+# Test & Coverage Outputs
+coverage/
+*.lcov
+.nyc_output/
 
-# Editor directories and files
+# Editor & OS Metadata
+.DS_Store
+Thumbs.db
+.idea/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-branch_structure.json
-temp_auto_push.bat
-temp_interactive_push.bat
+
+# Temporary & Cache Directories
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+scratch/
+tmp/
+temp/
